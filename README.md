@@ -1,12 +1,11 @@
 # Dutch-PM25-Modelling
-PROJECT PROPOSAL
 
-Topic: Modeling and Predictions with Particulate Matter in The Netherlands
+Modeling and Predictions with Particulate Matter in The Netherlands
 
 Project Description:
-Luchtmeetnet is an initiative of the National Institute for Public Health (RIVM) to provide unvalidated measurement data for the Duthc air quality. I want to use real-time or hourly data to predict/model dispersion
+Luchtmeetnet is an initiative of the National Institute for Public Health (RIVM) to provide unvalidated measurement data for the Dutch air quality. I want to use real-time or hourly data to predict/model dispersion
 of Particulate Matter in the Dutch air using the Atmospheric Dispersion Model, or make heat maps of PM density using the different measurement stations in the Netherlands. Also possibly doing some simple 
-statistical modelling like Linear Regression to check for trends. In the case that the API functionality is hard to establish or maintain I propose to use hourly weather data validated by the RIVM.
+statistical modelling like Linear Regression to check for trends. In the case that the API functionality is hard to establish or maintain, I propose to use hourly weather data validated by the RIVM.
 
 Packages/Libraries: Matplotlib, urllib, Folium, NumPy, json, ssl 
 
