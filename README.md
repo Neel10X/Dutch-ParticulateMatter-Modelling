@@ -9,7 +9,7 @@ statistical modelling like Linear Regression to check for trends. In the case th
 
 Packages/Libraries: Matplotlib, urllib, Folium, NumPy, json, ssl 
 
-Data source:
+Data sources:
 1. RIVM Weather Data Website: https://www.luchtmeetnet.nl/informatie
 2. Luchtmeetnet 2020 OpenAPI: https://api-docs.luchtmeetnet.nl/
 3. Hourly Weather Data: https://data.rivm.nl/data/luchtmeetnet/Actueel-jaar/
