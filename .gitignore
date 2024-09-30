@@ -1,1 +1,2 @@
-#put files that will be commited to repository here.
+#put files that will not be commited to repository here.
+myproj_venv/
