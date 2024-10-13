@@ -1,2 +1,18 @@
-#put files that will not be commited to repository here.
-myproj_venv/
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Testing code file
+test.py
+
+# TOML File
+pyproject.toml
+
+# Virtual Environments
+myproj_venv
