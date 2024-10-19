@@ -70,7 +70,6 @@ Timestamp                 PM10 Value (µg/m³)
 
 ## Project Files 
 - **main.py** - The Python file with all the functions for this project.
-- **.gitignore** - The file which specifies which files (in the local repository folder) to ignore while committing and pushing to Github.
 - **test_main.py** - The Python file with all the testing functions
 - **pyproject.toml** - The configuration file which contains the build system requirements for Python projects. Refer to the [Python Packaging User Guide](https://packaging.python.org/en/latest/specifications/pyproject-toml/) webpage for more information. (file not available yet)
 
