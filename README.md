@@ -78,3 +78,5 @@ Timestamp                 PM10 Value (µg/m³)
 Start by downloading the main.py file to your system or cloning the repository to your system. Run the main.py file from either your terminal or code editor. Enter your date range for PM10 data in **YYYY-MM-DD** format. You will get your PM10 data for each hour (from **09:00:00 to 23:00:00** for one day) for the specified range. **Ensure the date range is between 1 and 7 days**
 
 **Please note the API requests have a rate limit of 100 requests every 5 minutes. For running the program individually that will not be a issue, however, be aware while using a script not to make too many requests, to avoid getting blacklisted**
+
+To run the test_main.py file, type "pytest <directory>\test_main.py" in the terminal.
