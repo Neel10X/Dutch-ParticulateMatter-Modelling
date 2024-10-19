@@ -1,21 +1,22 @@
 # Environments
-.env
-.venv
+*.env
+*.venv
+Env/
 env/
+.env/
+Venv/
 venv/
 ENV/
+myproj_venv
 
 # Jupyter Notebook
-.ipynb_checkpoints
+.ipynb_checkpoints/
 
 # Testing code file
 test.py
 
 # TOML File
 pyproject.toml
-
-# Virtual Environments
-myproj_venv
 
 # Pycache
 __pycache__/

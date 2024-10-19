@@ -6,7 +6,7 @@
 
 
 ## Project Description
-[Luchtmeetnet](https://www.luchtmeetnet.nl/) is an initiative of the National Institute for Public Health (RIVM) to provide unvalidated measurement data for the Dutch air quality. Particulate Matter (PM10) refers to suspended particles in the air with maximum diameter of 0.01 millimeters (mm) or 10 (micrometers) μm. These particles can cause adverse health-affects if inhaled. In the Netherlands, the 24 hour limit value [may not exceed](https://www.rivm.nl/bibliotheek/digitaaldepot/GTL_matthijsen.pdf) 50 (μg/m<sup>3</sup>) more than 35 times per year. Therefore, it is essential to monitor their concentrations/values in the air. The real-time or hourly data for PM10 will be used to predict/model dispersion of PM10 in the Dutch air using the Atmospheric Dispersion Model, or make heat maps of PM10 density using the different measurement stations in the Netherlands. Also possibly doing some simple statistical modelling like Linear Regression to check for trends. In the case that the API functionality is hard to establish or maintain, hourly weather data validated by the RIVM will be used instead. However, these steps are outside the scope of this project for the time being and full functionality will be established at a later time. Refer to **Project Methodology** for the scope of the project.
+[Luchtmeetnet](https://www.luchtmeetnet.nl/) is an initiative of the National Institute for Public Health (RIVM) to provide unvalidated measurement data for the Dutch air quality. Particulate Matter (PM10) refers to suspended particles in the air with maximum diameter of 0.01 millimeters (mm) or 10 (micrometers) μm. These particles can cause adverse health-affects if inhaled. In the Netherlands, the 24 hour limit value may not exceed [50 (μg/m<sup>3</sup>)](https://www.rivm.nl/bibliotheek/digitaaldepot/GTL_matthijsen.pdf) more than 35 times per year. Therefore, it is essential to monitor their concentrations/values in the air. The real-time or hourly data for PM10 will be used to predict/model dispersion of PM10 in the Dutch air using the Atmospheric Dispersion Model, or make heat maps of PM10 density using the different measurement stations in the Netherlands. Also possibly doing some simple statistical modelling like Linear Regression to check for trends. In the case that the API functionality is hard to establish or maintain, hourly weather data validated by the RIVM will be used instead. However, these steps are outside the scope of this project for the time being and full functionality will be established at a later time. Refer to **Project Methodology** for the scope of the project.
 
 ## Project Methodology
 For the time being the project will start by creating basic functions that read user input data for which station they want PM10 data for (currently only station NL01494 in [Schiedam](https://www.luchtmeetnet.nl/meetpunten?station=NL01494&component=PM10)), and validate them to ensure that it can be used to call the API correctly using requests module. Then the test_main file will be used to test these functions.
@@ -14,6 +14,7 @@ For the time being the project will start by creating basic functions that read 
 ## Packages/Libraries
 - **Requests** - to query the API and process the json response
 - **Datetime** - to handle datetime input from user
+- **Pytest** - to create testing functions for the main python program
 - **NumPy** - (will be implemented in the future)
 - **Matplotlib** - (will be implemented in the future)
 - **Folium** - (will be implemented in the future)
@@ -25,7 +26,7 @@ For the time being the project will start by creating basic functions that read 
 4. [Atmospheric Dispersion Modelling](https://github.com/pktparticle/gaussianPlume) (will be implemented in the future)
 
 ## Expected Outcomes 
-Hourly real-time PM10 data for the given time-range (limited to page 1 of the api response). Future functionality - Modelling Particulate Matter (PM10) using the Atmospheric Dispersion Modeling to estimate dispersion of PM10 particles in the Netherlands, or making a heat map of the data for example.
+Hourly real-time PM10 data for the given time-range (limited to page 1 of the API response). Future functionality - Modelling Particulate Matter (PM10) using the Atmospheric Dispersion Modeling to estimate dispersion of PM10 particles in the Netherlands, or making a heat map of the data for example.
 
 ### Example Input
 ```

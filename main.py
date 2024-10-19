@@ -1,82 +1,100 @@
 # Import all python packages
 
 import requests
-import datetime
+from datetime import datetime
 import sys
 
-# Will be looked into in the future
-
-'''def api_endpoints(parameter):
-    
-    This function determines which endpoint that needs to be used when the user calls the API
-
-    For example: 1) If the user wants all the measuring station names, then the stations endpoint will be
-    concatenated to the base url.
-      
-    2) the NO2 values for a day from one particular station would mean that the stations/{stationname}/measurements
-    would be used
-
-    Input:
-        parameter: string
-
-    Output:
-        endpoint: string
-
-    
-    endpoints = ["component","components","organisations","stations",""]
-    endpoint = endpoints[parameter]
-    return endpoint'''
-
-
-def input_validate(userinp):
+def param_validate(userinp):
     '''
-    This function validates the user input for the function user_input as handling incosistent
+    This function validates the parameter input for the function user_input as handling incosistent
     user-entered data is essential to ensure the proper/smooth functioning of a program
 
-    Input:
-        userinp: string
+    Input(s):
 
-    Output:
+        userinp (str): User input
+
+    Output(s):
         
-        If user input valid:
-            userinp: string
+        str: userinp if user input is a string and contains "PM10"
 
-        Else:
-            return None
+        None: if anything else
     '''
     if len(userinp) < 1:
         
-        print("Incorrect input!")
+        print("Please specify a pollutant!")
         return None
     
-    elif isinstance(userinp,str) and userinp in ["PM10"]:
+    if isinstance(userinp,str) and userinp.upper() in ["PM10"]:
         
-        return userinp.upper()
-
-    #elif isinstance(userinp,datetime):
-
-        #return userinp
-
+        return userinp
+        
     else:
-        
-        print("Incorrect input!")
+
+        print("Enter a valid input!")
         return None
     
-def station_measurements(param,order="formula",order_dir="asc",station="NL01494"):
+def date_validate(startdateinp,enddateinp):
     '''
-    This function creates the final piece of the URL based on the input parameter/pollutant, to help make the final url
+    This function validates the start and end date input for the function user_input as incosistent datetime formats will not query
+    the API properly. Making sure that the dates are not more than 7 days apart and end date is later than the start date.
+
+    Input(s):
+
+        startdateinp (str): Start date input in YYYY-MM-DD format
+        enddateinp (str): End date input in YYYY-MM-DD format
+
+    Output(s):
+        
+        tuple: (formatted_startdate, formatted_enddate) if both the dates are of the appropriate YYYY-MM-DD format
+
+        None: if anything else    
+    '''
+    try:
+
+        start_date = datetime.strptime(startdateinp, "%Y-%m-%d")
+        
+        formatted_startdate = start_date.strftime("%Y-%m-%d")
+
+    except:
+
+        print("Incorrect start date format. Please use YYYY-MM-DD")
+        return None
+    
+    try:
+
+        end_date = datetime.strptime(enddateinp, "%Y-%m-%d")
+
+        formatted_enddate = end_date.strftime("%Y-%m-%d")
+    
+    except:
+
+        print("Incorrect end date format. Please use YYYY-MM-DD")
+        return None
+    
+    if abs((end_date - start_date).days) <= 7 and end_date > start_date:
+        
+        return formatted_startdate, formatted_enddate
+    
+    else:
+
+        print("The end date must be later than the start date and at least 7 days apart, or atleast 1 day apart.")
+        return None
+
+def measurements(formula, start, end, order_by="timestamp_measured", order_direction="asc", station="NL01494"):
+    '''
+    This function creates the final piece of the URL based on the input parameter/pollutant, and start and end date, to help make the final url
     that will be used to call the API. This function will help in essentially getting the pollutant measurements for
-    a particular station 
+    a time range
 
     Input:
-        param: string
-        order: string
-        station: string
+        string: param
+        string: start
+        string: end 
 
     Output:
-        endpoint_included_url: string
+        string: endpoint_included_url
     '''
-    endpoint_included_url = f'stations/{station}/measurements?page=1&order={order}&order_direction={order_dir}&formula={param}'
+    endpoint_included_url = f'measurements?station_number={station}&formula={formula}&page=1&order_by={order_by}&order_direction={order_direction}&end={end}T09:00:00&start={start}T09:00:00'
     return endpoint_included_url
 
 
@@ -91,15 +109,25 @@ def user_input(base_url = 'https://api.luchtmeetnet.nl/open_api/'):
         url: string
     '''
     parameter = input("Enter Parameter (Pollutant PM10 will only work for now): ")
-    
-    if input_validate(parameter) is not None:
+    print()
+    print("For simplicity sake, only station NL01494 is available")
+    print()
+    if param_validate(parameter) is not None:
 
-        # print("Enter which time interval you need the data for")
-        # time_range = input()
-        url = base_url + station_measurements(parameter)
-        return url
-        # url = base_url + api_endpoints()
-        # return url
+        print("Enter date in the YYYY-MM-DD format")
+        print()
+        userstartdate_input = input("Enter which start date: ")
+        print()
+        userenddate_input = input("Enter which end date (Maximum 7 day range): ")
+
+        if date_validate(userstartdate_input,userenddate_input) is not None:
+
+            url = base_url + measurements(parameter.upper(), userstartdate_input, userenddate_input)
+            return url
+        
+        else:
+
+            return None
     
     else:
         
@@ -107,20 +135,39 @@ def user_input(base_url = 'https://api.luchtmeetnet.nl/open_api/'):
 
 def call_api():
     '''
+    Runs the user_input() function to make the URL for api calling and strips the time and pollutant values
+    out of the json response, which is in the form of a dictionary in python. Prints the timestamp and its corresponding PM10
+    value in a readable format.
     Input:
-        No inputs, runs the user_input() function to make the URL for api calling
+        No input
 
     Output:
-        dictionary (API response)
+        string
     '''
-    if user_input is not None:
-        r = requests.get(user_input())
-        return r.json()
-    
+    call_user_input = user_input()
+
+    if call_user_input is not None:
+
+        r = requests.get(call_user_input)
+
+        response = r.json()
+
+        timestamps = [i['timestamp_measured'] for i in response['data']]
+
+        values = [i['value'] for i in response['data']]
+
+        print(f"{'Timestamp':<25} {'PM10 Value (µg/m³)':<15}")
+
+        print("-" * 40)
+
+        for timestamp, value in zip(timestamps, values):
+
+            print(f"{timestamp:<25} {value:<15}")
+
     else:
-        print("Hmm something went wrong...please try running the program again")
+
         sys.exit()
 
-print(call_api())
-# user_input()
-# print(user_input())
+if __name__ == "__main__":
+    
+    call_api()
