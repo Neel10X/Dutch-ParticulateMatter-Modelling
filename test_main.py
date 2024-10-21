@@ -60,31 +60,20 @@ def test_user_input():
     url = refactor_user_input(parameter, start_date, end_date)
     assert url is None
 
-'''def refactor_call_api():
-
-    call_user_input = refactor_user_input()
+def refactor_call_api(call_user_input):
 
     if call_user_input is not None:
 
         r = requests.get(call_user_input)
 
-        response = r.json()
-
-        timestamps = [i['timestamp_measured'] for i in response['data']]
-
-        values = [i['value'] for i in response['data']]
-
-        print(f"{'Timestamp':<25} {'PM10 Value (µg/m³)':<15}")
-
-        print("-" * 40)
-
-        for timestamp, value in zip(timestamps, values):
-
-            print(f"{timestamp:<25} {value:<15}")
+        return r.status_code
 
     else:
 
         sys.exit()
 
-def test_call_api():
-'''
+def test_call_api(): 
+
+    call_user_input = 'https://api.luchtmeetnet.nl/open_api/measurements?station_number=NL01494&formula=PM10&page=1&order_by=timestamp_measured&order_direction=asc&end=2024-10-11T09:00:00&start=2024-10-10T09:00:00'
+
+    assert refactor_call_api(call_user_input) == 200

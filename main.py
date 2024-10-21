@@ -87,12 +87,12 @@ def measurements(formula, start, end, order_by="timestamp_measured", order_direc
     a time range
 
     Input:
-        string: param
-        string: start
-        string: end 
+        formula (string): pollutant name
+        start (string): start date
+        end (string): end date
 
     Output:
-        string: endpoint_included_url
+        endpoint_included_url (string): url to create part of the query for api calling.
     '''
     endpoint_included_url = f'measurements?station_number={station}&formula={formula}&page=1&order_by={order_by}&order_direction={order_direction}&end={end}T09:00:00&start={start}T09:00:00'
     return endpoint_included_url
@@ -103,10 +103,10 @@ def user_input(base_url = 'https://api.luchtmeetnet.nl/open_api/'):
     This function asks the user for a parameter/pollutant, then invokes the input validation functions and if the user data
     is good, then it returns a complete URL needed for calling the API
     Input:
-        base_url: string
+        base_url (string): base url
 
     Output:
-        url: string
+        string: complete url for API querying
     '''
     parameter = input("Enter Parameter (Pollutant PM10 will only work for now): ")
     print()
@@ -142,7 +142,7 @@ def call_api():
         No input
 
     Output:
-        string
+        string: output text in the terminal
     '''
     call_user_input = user_input()
 
