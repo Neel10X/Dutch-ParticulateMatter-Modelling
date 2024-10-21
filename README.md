@@ -79,3 +79,7 @@ Start by downloading the main.py file to your system or cloning the repository t
 **Please note the API requests have a rate limit of 100 requests every 5 minutes. For running the program individually that will not be a issue, however, be aware while using a script not to make too many requests, to avoid getting blacklisted**
 
 To run the test_main.py file, type "pytest <directory>\test_main.py" in the terminal.
+
+## Pytest Output
+
+![Pytest output for test_main.py file which contains testing functions for my main.py file](pytest%20output.png")
