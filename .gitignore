@@ -15,8 +15,11 @@ myproj_venv
 # Testing code file
 test.py
 
-# TOML File
-pyproject.toml
-
 # Pycache
 __pycache__/
+
+# dist folder
+dist/
+
+# egg.info files
+**/*.egg-info

@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "PM10Modelling"
+version = "0.1.0"
+description = "A package to get PM10 from a weather station in Schiedam, Netherlands"
+authors = [ 
+    {name = "Neel Suri", email = "neelsuri3009@gmail.com"},
+]
+dependencies = ["requests>=2.32.3"]
